@@ -1,34 +1,42 @@
 import pandas as pd
 
-# Load dataset
 def load_data(file_path):
-    try:
-        df = pd.read_csv(file_path)
-        print("Data loaded successfully!")
-        return df
-    except FileNotFoundError:
-        print("Error: File not found.")
-        return None
+    """Loads the air quality dataset from a CSV file."""
+    return pd.read_csv(file_path)
 
-# Process data: Fill missing values and normalise a column
-def process_data(df):
-    if df is not None:
-        df.fillna(0, inplace=True)  # Fill missing values
-        if 'value' in df.columns:
-            df['normalised_value'] = df['value'] / df['value'].max()
-        print("Data processed successfully!")
+def clean_data(df):
+    """Performs basic data cleaning."""
+    df = df.dropna()  # Remove missing values
     return df
 
-# Save processed data
-def save_data(df, output_path):
-    if df is not None:
-        df.to_csv(output_path, index=False)
-        print(f"Processed data saved to {output_path}")
+def summarise_data(df):
+    """Returns basic summary statistics."""
+    return df.describe()
 
 if __name__ == "__main__":
-    input_file = "raw_data.csv"  # Assume this is in the repo
-    output_file = "processed_data.csv"
-    
-    data = load_data(input_file)
-    processed_data = process_data(data)
-    save_data(processed_data, output_file)
+    file_path = "raw_data.csv"
+    data = load_data(file_path)
+    clean_data = clean_data(data)
+    summary = summarise_data(clean_data)
+    print(summary)
+import pandas as pd
+
+def load_data(file_path):
+    """Loads the air quality dataset from a CSV file."""
+    return pd.read_csv(file_path)
+
+def clean_data(df):
+    """Performs basic data cleaning."""
+    df = df.dropna()  # Remove missing values
+    return df
+
+def summarise_data(df):
+    """Returns basic summary statistics."""
+    return df.describe()
+
+if __name__ == "__main__":
+    file_path = "raw_data.csv"
+    data = load_data(file_path)
+    clean_data = clean_data(data)
+    summary = summarise_data(clean_data)
+    print(summary)
